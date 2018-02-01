@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="怕什么真理无穷，进一步有进一步的欢喜">
-<meta property="og:type" content="website">
+<meta name="description" content="#排序算法##冒泡排序（bubble sort） 优化后时间复杂度是O(n) 1234567do	swapped = false	for i = 1 to indexOfLastUnsortedElement - 1		if leftElement &amp;gt; rightEmement			swap(leftElement,rightElement)			swapped = truewhile sw">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/11/02/排序算法记录/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="怕什么真理无穷，进一步有进一步的欢喜">
+<meta property="og:description" content="#排序算法##冒泡排序（bubble sort） 优化后时间复杂度是O(n) 1234567do	swapped = false	for i = 1 to indexOfLastUnsortedElement - 1		if leftElement &amp;gt; rightEmement			swap(leftElement,rightElement)			swapped = truewhile sw">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-02T08:42:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="怕什么真理无穷，进一步有进一步的欢喜">
+<meta name="twitter:description" content="#排序算法##冒泡排序（bubble sort） 优化后时间复杂度是O(n) 1234567do	swapped = false	for i = 1 to indexOfLastUnsortedElement - 1		if leftElement &amp;gt; rightEmement			swap(leftElement,rightElement)			swapped = truewhile sw">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/02/排序算法记录/"/>
 
 
 
 
 
-  <title>Hexo</title>
+  <title> | Hexo</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/02/排序算法记录/" itemprop="url">未命名</a></h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -301,9 +299,7 @@
       
 
       
-        
-          
-            <h2 id="排序算法"><a href="#排序算法" class="headerlink" title="#排序算法"></a>#排序算法</h2><p>##冒泡排序（bubble sort）</p>
+        <h2 id="排序算法"><a href="#排序算法" class="headerlink" title="#排序算法"></a>#排序算法</h2><p>##冒泡排序（bubble sort）</p>
 <p>优化后时间复杂度是O(n)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">do</span><br><span class="line">	swapped = false</span><br><span class="line">	for i = 1 to indexOfLastUnsortedElement - 1</span><br><span class="line">		if leftElement &gt; rightEmement</span><br><span class="line">			swap(leftElement,rightElement)</span><br><span class="line">			swapped = true</span><br><span class="line">while swapped</span><br></pre></td></tr></table></figure>
 <h2 id="选择排序（selection-sort）"><a href="#选择排序（selection-sort）" class="headerlink" title="选择排序（selection sort）"></a>选择排序（selection sort）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">repeat (numOfElements -1) times</span><br><span class="line">	set the forst unsorted element as the minimum</span><br><span class="line">	for each of the unsorted elemenys</span><br><span class="line">		if element &lt; currentMinimum</span><br><span class="line">			set element as new minimum</span><br><span class="line">	swap minimum with first unsort position</span><br></pre></td></tr></table></figure>
@@ -315,8 +311,6 @@
 </blockquote>
 <h2 id="计数排序（countion-sort）"><a href="#计数排序（countion-sort）" class="headerlink" title="计数排序（countion sort）"></a>计数排序（countion sort）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create key (counting) array</span><br><span class="line">for each element in list</span><br><span class="line">  increase the respective counter by 1</span><br><span class="line">for each counter, starting from smallest key</span><br><span class="line">  while counter is non-zero</span><br><span class="line">    restore element to list</span><br><span class="line">    decrease counter by 1</span><br></pre></td></tr></table></figure>
 <h2 id="基数排序（radix-sort）"><a href="#基数排序（radix-sort）" class="headerlink" title="基数排序（radix sort）"></a>基数排序（radix sort）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create 10 buckets (queues) for each digit (0 to 9)</span><br><span class="line">for each digit placing</span><br><span class="line">  for each element in list</span><br><span class="line">    move element into respective bucket</span><br><span class="line">  for each bucket, starting from smallest digit</span><br><span class="line">    while bucket is non-empty</span><br><span class="line">      restore element to list</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -333,12 +327,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -348,10 +342,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -359,6 +354,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -379,8 +378,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -422,6 +430,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序算法"><span class="nav-number">1.</span> <span class="nav-text">#排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择排序（selection-sort）"><span class="nav-number">2.</span> <span class="nav-text">选择排序（selection sort）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序（insertion-sort）"><span class="nav-number">3.</span> <span class="nav-text">插入排序（insertion sort）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序（merge-sort）"><span class="nav-number">4.</span> <span class="nav-text">归并排序（merge sort）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序（quick-sort）"><span class="nav-number">5.</span> <span class="nav-text">快速排序（quick sort）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计数排序（countion-sort）"><span class="nav-number">6.</span> <span class="nav-text">计数排序（countion sort）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基数排序（radix-sort）"><span class="nav-number">7.</span> <span class="nav-text">基数排序（radix sort）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -555,6 +579,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
