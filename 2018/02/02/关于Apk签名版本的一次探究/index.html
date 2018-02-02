@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Erzyb">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T07:20:13.365Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/02/关于Apk签名版本的一次探究/apk-validation-process.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/02/关于Apk签名版本的一次探究/apk-before-after-signing.png">
+<meta property="og:updated_time" content="2018-02-02T07:29:29.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Apk签名版本的一次探究">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/02/关于Apk签名版本的一次探究/apk-validation-process.png">
 
 
 
@@ -315,7 +318,7 @@
 <hr>
 <pre><code>居安思危，思则有备，有备无患
 </code></pre><p>&emsp;&emsp;目前官方还提供有禁用v2签名的方法，万一那一天不提供禁用方法了，是不是就一夜回到解放前了，所以，还是要研究一下签名原理的，有备无患。</p>
-<p><a href="apk-validation-process.png">apk签名验证过程</a></p>
+<p><img src="/2018/02/02/关于Apk签名版本的一次探究/apk-validation-process.png" alt="apk签名验证过程"></p>
 <ol>
 <li><p>v1方案</p>
 <p> JAR 已签名的 APK 是一种标准的已签名 JAR，其中包含的条目必须与 META-INF/MANIFEST.MF 中列出的条目完全相同，并且所有条目都必须已由同一组签名者签名。</p>
@@ -329,7 +332,7 @@
 </li>
 <li><p>v2方案</p>
 <p> APK 签名方案 v2 是一种全文件签名方案，该方案能够发现对 APK 的受保护部分进行的所有更改，从而有助于加快验证速度并增强完整性保证。使用 APK 签名方案 v2 进行签名时，会在 APK 文件中插入一个 APK 签名分块，该分块位于“ZIP 中央目录”部分之前并紧邻该部分。在“APK 签名分块”内，v2 签名和签名者身份信息会存储在 APK 签名方案 v2 分块中。该模式在原有的签名模式上，增加校验APK的SHA256哈希值；这种新引入的签名机制，会对整个文件的每个字节都会做校验，包括 comment 区域。</p>
-<p> <a href="apk-before-after-signing.png"></a></p>
+<p> <img src="/2018/02/02/关于Apk签名版本的一次探究/apk-before-after-signing.png" alt="apk-before-after-signing"></p>
 <p> 使用v2签名，apk中包含四个部分：ZIP条目的内容、APK签名分块、ZIP中央目录、ZIP中央目录结尾。其中APK签名分块负责保护其余部分的完整性以及签名分块中的 singed data分块的完整性。</p>
 </li>
 </ol>
