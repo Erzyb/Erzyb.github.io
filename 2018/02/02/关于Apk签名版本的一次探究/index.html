@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Erzyb">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T06:24:47.831Z">
+<meta property="og:updated_time" content="2018-02-02T07:20:13.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Apk签名版本的一次探究">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
@@ -313,6 +313,30 @@
 <p>&emsp;&emsp;简单的处理这个问题，就是在代码中修改签名配置，去除v2签名，只使用v1签名。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line">       config &#123;</span><br><span class="line">           <span class="function">storeFile <span class="title">file</span><span class="params">(<span class="string">"*.keystore"</span>)</span></span></span><br><span class="line"><span class="function">           storePassword "123456"</span></span><br><span class="line"><span class="function">           keyAlias "***"</span></span><br><span class="line"><span class="function">           keyPassword "123456"</span></span><br><span class="line"><span class="function">           v2SigningEnabled <span class="keyword">false</span></span></span><br><span class="line"><span class="function">       &#125;</span></span><br><span class="line"><span class="function">   &#125;</span></span><br></pre></td></tr></table></figure>
 <hr>
+<pre><code>居安思危，思则有备，有备无患
+</code></pre><p>&emsp;&emsp;目前官方还提供有禁用v2签名的方法，万一那一天不提供禁用方法了，是不是就一夜回到解放前了，所以，还是要研究一下签名原理的，有备无患。</p>
+<p><a href="apk-validation-process.png">apk签名验证过程</a></p>
+<ol>
+<li><p>v1方案</p>
+<p> JAR 已签名的 APK 是一种标准的已签名 JAR，其中包含的条目必须与 META-INF/MANIFEST.MF 中列出的条目完全相同，并且所有条目都必须已由同一组签名者签名。</p>
+<ol>
+<li>每个签名者均由一个包含 META-INF/<signer>.SF 和 META-INF/<signer>.(RSA|DSA|EC) 的 JAR 条目来表示。</signer></signer></li>
+<li><signer>.(RSA|DSA|EC) 是具有 SignedData 结构的 PKCS #7 CMS ContentInfo，其签名通过 <signer>.SF 文件进行验证。</signer></signer></li>
+<li><signer>.SF 文件包含 META-INF/MANIFEST.MF 的全文件摘要和 META-INF/MANIFEST.MF 各个部分的摘要。需要验证 MANIFEST.MF 的全文件摘要。如果该验证失败，则改为验证 MANIFEST.MF 各个部分的摘要。</signer></li>
+<li>对于每个受完整性保护的 JAR 条目，META-INF/MANIFEST.MF 都包含一个具有相应名称的部分，其中包含相应条目未压缩内容的摘要。所有这些摘要都需要验证。</li>
+<li>如果 APK 包含未在 MANIFEST.MF 中列出且不属于 JAR 签名一部分的 JAR 条目，APK 验证将会失败。      </li>
+</ol>
+</li>
+<li><p>v2方案</p>
+<p> APK 签名方案 v2 是一种全文件签名方案，该方案能够发现对 APK 的受保护部分进行的所有更改，从而有助于加快验证速度并增强完整性保证。使用 APK 签名方案 v2 进行签名时，会在 APK 文件中插入一个 APK 签名分块，该分块位于“ZIP 中央目录”部分之前并紧邻该部分。在“APK 签名分块”内，v2 签名和签名者身份信息会存储在 APK 签名方案 v2 分块中。该模式在原有的签名模式上，增加校验APK的SHA256哈希值；这种新引入的签名机制，会对整个文件的每个字节都会做校验，包括 comment 区域。</p>
+<p> <a href="apk-before-after-signing.png"></a></p>
+<p> 使用v2签名，apk中包含四个部分：ZIP条目的内容、APK签名分块、ZIP中央目录、ZIP中央目录结尾。其中APK签名分块负责保护其余部分的完整性以及签名分块中的 singed data分块的完整性。</p>
+</li>
+</ol>
+<hr>
+<p>官方APK再签名或者校验签名工具apksigner介绍：<br><a href="https://developer.android.com/studio/command-line/apksigner.html" target="_blank" rel="noopener">https://developer.android.com/studio/command-line/apksigner.html</a></p>
+<p>检测工具下载地址：<br><a href="https://github.com/bihe0832/AndroidAPKInfo/tree/master/CheckAndroidV2Signature.jar" target="_blank" rel="noopener">https://github.com/bihe0832/AndroidAPKInfo/tree/master/CheckAndroidV2Signature.jar</a></p>
+<p>v2多渠道快速打包方案：Walle:<br><a href="https://tech.meituan.com/android-apk-v2-signature-scheme.html" target="_blank" rel="noopener">https://tech.meituan.com/android-apk-v2-signature-scheme.html</a></p>
 
       
     </div>
