@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋。。。 &amp;emsp;&amp;emsp;交付测试适配。不久，测试反馈有部分手机不能安装，提示安装包未签">
+<meta name="description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Apk签名版本的一次探究">
 <meta property="og:url" content="http://yoursite.com/2018/02/02/关于Apk签名版本的一次探究/index.html">
 <meta property="og:site_name" content="Erzyb">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋。。。 &amp;emsp;&amp;emsp;交付测试适配。不久，测试反馈有部分手机不能安装，提示安装包未签">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T06:22:03.250Z">
+<meta property="og:updated_time" content="2018-02-02T06:24:47.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Apk签名版本的一次探究">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋。。。 &amp;emsp;&amp;emsp;交付测试适配。不久，测试反馈有部分手机不能安装，提示安装包未签">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。 &amp;emsp;&amp;emsp;仿照着美团多渠道打包方案很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。">
 
 
 
@@ -301,7 +301,8 @@
 
       
         <p>&emsp;&emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。</p>
-<p>&emsp;&emsp;仿照着<a href="https://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="noopener">美团多渠道打包方案</a>很快就撸完了，打包，安装，好使，不错不错，心情美滋滋。。。</p>
+<p>&emsp;&emsp;仿照着<a href="https://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="noopener">美团多渠道打包方案</a>很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。</p>
+<a id="more"></a>
 <p>&emsp;&emsp;交付测试适配。不久，测试反馈有部分手机不能安装，提示安装包未签名。WTF？没有签名？？一脸懵逼，只有部分手机不能用，什么鬼。找了很多手机试了试，总算发现了点什么，所有Android系统7.0以上版本的手机不能用。确认了症状后，身为一个面向google程序员，自然一通搜索。。。</p>
 <p>&emsp;&emsp;<a href="https://source.android.com/security/apksigning/?hl=zh-cn" target="_blank" rel="noopener">应用签名</a>资料都在这里了，主要就是一下几点：</p>
 <pre><code>1. Android 支持两种应用签名方案，一种是基于 JAR 签名的方案（v1 方案），另一种是 Android Nougat (Android 7.0) 中引入的 APK 签名方案 v2（v2 方案）。

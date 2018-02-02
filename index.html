@@ -302,21 +302,15 @@
 
       
         
-          
-            <p>&emsp;&emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。</p>
-<p>&emsp;&emsp;仿照着<a href="https://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="noopener">美团多渠道打包方案</a>很快就撸完了，打包，安装，好使，不错不错，心情美滋滋。。。</p>
-<p>&emsp;&emsp;交付测试适配。不久，测试反馈有部分手机不能安装，提示安装包未签名。WTF？没有签名？？一脸懵逼，只有部分手机不能用，什么鬼。找了很多手机试了试，总算发现了点什么，所有Android系统7.0以上版本的手机不能用。确认了症状后，身为一个面向google程序员，自然一通搜索。。。</p>
-<p>&emsp;&emsp;<a href="https://source.android.com/security/apksigning/?hl=zh-cn" target="_blank" rel="noopener">应用签名</a>资料都在这里了，主要就是一下几点：</p>
-<pre><code>1. Android 支持两种应用签名方案，一种是基于 JAR 签名的方案（v1 方案），另一种是 Android Nougat (Android 7.0) 中引入的 APK 签名方案 v2（v2 方案）。
-2. Android 7.0 中引入了 APK 签名方案 v2（v2 方案）。该方案会对 APK 的内容进行哈希处理和签名，然后将生成的“APK 签名分块”插入到 APK 中。  
-2. APK 签名方案 v2 是在 Android 7.0 (Nougat) 中引入的。为了使 APK 可在 Android 6.0 (Marshmallow) 及更低版本的设备上安装，应先使用 JAR 签名功能对 APK 进行签名，然后再使用 v2 方案对其进行签名。
-3. 在 Android 7.0 中，可以根据 APK 签名方案 v2（v2 方案）或 JAR 签名（v1 方案）验证 APK。更低版本的平台会忽略 v2 签名，仅验证 v1 签名。
-</code></pre><p>&emsp;&emsp;总结，7.0以上的手机会首先验证v2签名，7.0以下的手机只验证v1签名。v2签名的安全性更强，之前人为的对apk的修改导致v2签名验证未通过。</p>
-<p>&emsp;&emsp;简单的处理这个问题，就是在代码中修改签名配置，去除v2签名，只使用v1签名。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line">       config &#123;</span><br><span class="line">           <span class="function">storeFile <span class="title">file</span><span class="params">(<span class="string">"*.keystore"</span>)</span></span></span><br><span class="line"><span class="function">           storePassword "123456"</span></span><br><span class="line"><span class="function">           keyAlias "***"</span></span><br><span class="line"><span class="function">           keyPassword "123456"</span></span><br><span class="line"><span class="function">           v2SigningEnabled <span class="keyword">false</span></span></span><br><span class="line"><span class="function">       &#125;</span></span><br><span class="line"><span class="function">   &#125;</span></span><br></pre></td></tr></table></figure>
-<hr>
-
-          
+          <p>&emsp;&emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。</p>
+<p>&emsp;&emsp;仿照着<a href="https://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="noopener">美团多渠道打包方案</a>很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/02/关于Apk签名版本的一次探究/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
