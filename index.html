@@ -232,6 +232,306 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/22/2018目标/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erzyb">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erzyb">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/22/2018目标/" itemprop="url">2018目标</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T10:19:55+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>学习理财</p>
+<ol>
+<li>开始定投</li>
+<li>学习关于股票的知识</li>
+<li>关于比特币</li>
+</ol>
+</li>
+<li><p>开始健身</p>
+</li>
+<li>继续学习开发技术</li>
+<li>写80篇博客</li>
+<li><p>看10本有意义的书</p>
+<ol>
+<li>哈佛大学经济课</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/checkstyle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erzyb">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erzyb">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/09/checkstyle/" itemprop="url">checkstyle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-09T10:38:46+08:00">
+                2018-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CheckStyle配置"><a href="#CheckStyle配置" class="headerlink" title="CheckStyle配置"></a>CheckStyle配置</h1><h2 id="Checkstyle使用"><a href="#Checkstyle使用" class="headerlink" title="Checkstyle使用"></a>Checkstyle使用</h2><p>Checkstyle是检查java程序代码样式的工具。ide中可以通过checkstyle插件检查代码。</p>
+<p>Checkstyle配置是通过指定modules来应用到java文件的。modules是树状结构，以一个名为Checker的module作为root节点，一般的checker都会包括TreeWalker子module。</p>
+<p>在xml配置文件中通过module的name属性来区分module，module的Properties可以控制如何去执行这个module，每个property都有一个默认值，所有的check都有一个severity属性，用它来指定check的level。TreeWalker为每个java文件创建一个语法树，在节点之间调用submodules的Checks。</p>
+<h2 id="checkstyle具体用法"><a href="#checkstyle具体用法" class="headerlink" title="checkstyle具体用法"></a>checkstyle具体用法</h2><h3 id="Javadoc-Comment-文档规范"><a href="#Javadoc-Comment-文档规范" class="headerlink" title="Javadoc Comment 文档规范"></a>Javadoc Comment 文档规范</h3><ol>
+<li><p>AtclauseOrder</p>
+<p> 检查javadoc块标签或javadoc标签的顺序</p>
+<blockquote>
+<p>violateExecutionOnNonTightHtml</p>
+<p>target</p>
+<p>tagOrder</p>
+</blockquote>
+</li>
+<li><p>JavadocMethod</p>
+<p> 检查方法或构造函数的Javadoc。    </p>
+</li>
+</ol>
+<pre><code>name|描述
+---|---
+minLineCount|
+allowedAnnotations|
+validateThrows|
+scope|
+excludeScope|
+allowUndeclaredRTE|
+allowThrowsTagsForSubclasses|
+allowMissingParamTags|
+allowMissingThrowsTags|
+allowMissingReturnTag|
+allowMissingJavadoc|
+allowMissingPropertyJavadoc|
+logLoadErrors|
+suppressLoadErrors|
+ignoreMethodNamesRegex|
+tokens|
+</code></pre><ol>
+<li><p>JavadocPackage<br> 检查每个java包是否有说明文档。默认情况下，只允许package-info.java,但可以配置为允许package.html文件。如果两个文件都存在会报告错误。</p>
+<blockquote>
+<p>allowLegacy   是否允许package.html文件</p>
+<p>fileExtensions 文件类型扩展名设置</p>
+</blockquote>
+</li>
+<li><p>JavadocParagraph</p>
+</li>
+</ol>
+<h3 id="Naming-Conventions"><a href="#Naming-Conventions" class="headerlink" title="Naming Conventions"></a>Naming Conventions</h3><h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><h3 id="Size-Violations"><a href="#Size-Violations" class="headerlink" title="Size Violations"></a>Size Violations</h3><h3 id="Whitespace"><a href="#Whitespace" class="headerlink" title="Whitespace"></a>Whitespace</h3><h3 id="ModifierOrder"><a href="#ModifierOrder" class="headerlink" title="ModifierOrder"></a>ModifierOrder</h3><h3 id="Block-Checks"><a href="#Block-Checks" class="headerlink" title="Block Checks"></a>Block Checks</h3><h3 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h3><h3 id="Class-Design"><a href="#Class-Design" class="headerlink" title="Class Design"></a>Class Design</h3><h3 id="Duplicate-Code"><a href="#Duplicate-Code" class="headerlink" title="Duplicate Code"></a>Duplicate Code</h3><h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/07/git版本控制总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -781,7 +1081,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -794,7 +1094,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
