@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Erzyb">
 <meta property="og:description" content="#Drawable 可绘制对象资源 位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-23T06:10:51.089Z">
+<meta property="og:updated_time" content="2018-02-23T06:12:11.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Resource Drawable 详解">
 <meta name="twitter:description" content="#Drawable 可绘制对象资源 位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
@@ -337,8 +337,7 @@
 <p>编译的资源数据类型：<code>LevelListDrawable</code></p>
 </blockquote>
 <p>管理大量备选可绘制对象的可绘制对象，每个可绘制对象都分配有最大的备选数量。使用 setLevel() 设置可绘制对象的级别值会加载级别列表中 android:maxLevel 值大于或等于传递到方法的值的可绘制对象资源。</p>
-<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<p><level-list xmlns:android="http://schemas.android.com/apk/res/android"><br>    <item android:drawable="@drawable/drawable_resource" android:maxlevel="integer" android:minlevel="integer"><br></item></level-list></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;level-list</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:drawable=&quot;@drawable/drawable_resource&quot;</span><br><span class="line">        android:maxLevel=&quot;integer&quot;</span><br><span class="line">        android:minLevel=&quot;integer&quot; /&gt;</span><br><span class="line">&lt;/level-list&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="转换可绘制文件"><a href="#转换可绘制文件" class="headerlink" title="转换可绘制文件"></a>转换可绘制文件</h2><blockquote>
 <p>编译的资源数据类型：<code>TransitionDrawable</code></p>
 </blockquote>
