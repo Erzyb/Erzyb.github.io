@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="#Drawable 可绘制对象资源 位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
+<meta name="description" content="位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Resource Drawable 详解">
 <meta property="og:url" content="http://yoursite.com/2018/02/23/Resource Drawable 详解/index.html">
 <meta property="og:site_name" content="Erzyb">
-<meta property="og:description" content="#Drawable 可绘制对象资源 位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
+<meta property="og:description" content="位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-23T06:12:11.778Z">
+<meta property="og:updated_time" content="2018-02-23T06:13:23.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Resource Drawable 详解">
-<meta name="twitter:description" content="#Drawable 可绘制对象资源 位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
+<meta name="twitter:description" content="位图 编译的资源数据类型：BitmapDrawable  位图文件Android支持以下三种格式的位图文件：.png .jpg .gif(不建议)  在构建过程中可以通过appt工具自动优化位图文件，对图像进行无损压缩。如果计划将图像解读为比特流以转化为位图，可以放在res/raw/文件夹中，在那里不会优化">
 
 
 
@@ -300,8 +300,7 @@
       
 
       
-        <p>#Drawable 可绘制对象资源</p>
-<h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><blockquote>
+        <h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><blockquote>
 <p>编译的资源数据类型：<code>BitmapDrawable</code></p>
 </blockquote>
 <h3 id="位图文件"><a href="#位图文件" class="headerlink" title="位图文件"></a>位图文件</h3><p>Android支持以下三种格式的位图文件：<code>.png</code> <code>.jpg</code> <code>.gif</code>(不建议)</p>
@@ -342,7 +341,7 @@
 <p>编译的资源数据类型：<code>TransitionDrawable</code></p>
 </blockquote>
 <p>可在两种可绘制对象资源之间交错淡出的可绘制对象。每个可绘制对象由单一 <transition> 元素内的 <item> 元素表示。不支持超过两个项目。要向前转换，请调用 startTransition()。要向后转换，则调用 reverseTransition()。</item></transition></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;transition</span><br><span class="line">xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:drawable=&quot;@[package:]drawable/drawable_resource&quot;</span><br><span class="line">        android:id=&quot;@[+][package:]id/resource_name&quot;</span><br><span class="line">        android:top=&quot;dimension&quot;</span><br><span class="line">        android:right=&quot;dimension&quot;</span><br><span class="line">        android:bottom=&quot;dimension&quot;</span><br><span class="line">        android:left=&quot;dimension&quot; /&gt;</span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;transition</span><br><span class="line">	xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:drawable=&quot;@[package:]drawable/drawable_resource&quot;</span><br><span class="line">        android:id=&quot;@[+][package:]id/resource_name&quot;</span><br><span class="line">        android:top=&quot;dimension&quot;</span><br><span class="line">        android:right=&quot;dimension&quot;</span><br><span class="line">        android:bottom=&quot;dimension&quot;</span><br><span class="line">        android:left=&quot;dimension&quot; /&gt;</span><br><span class="line">&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="插入可绘制文件"><a href="#插入可绘制文件" class="headerlink" title="插入可绘制文件"></a>插入可绘制文件</h2><blockquote>
 <p>编译的资源数据类型：<code>InsetDrawable</code></p>
 </blockquote>
