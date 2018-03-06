@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Erzyb">
 <meta property="og:description" content="LeetCode 371.两整数之和  不使用运算符 + 和-，计算两整数a 、b之和。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-28T08:21:14.888Z">
+<meta property="og:updated_time" content="2018-03-05T02:56:19.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 位操作">
 <meta name="twitter:description" content="LeetCode 371.两整数之和  不使用运算符 + 和-，计算两整数a 、b之和。">
@@ -375,6 +375,12 @@
 5. 位操作与空间压缩
 </code></pre><p>位操作技巧</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">// 1. 获得int型最大值</span><br><span class="line">System.out.println((1 &lt;&lt; 31) - 1);// 2147483647， 由于优先级关系，括号不可省略</span><br><span class="line">System.out.println(~(1 &lt;&lt; 31));// 2147483647</span><br><span class="line"></span><br><span class="line">// 2. 获得int型最小值</span><br><span class="line">System.out.println(1 &lt;&lt; 31);</span><br><span class="line">System.out.println(1 &lt;&lt; -1);</span><br><span class="line"></span><br><span class="line">// 3. 获得long类型的最大值</span><br><span class="line">System.out.println(((long)1 &lt;&lt; 127) - 1);</span><br><span class="line"></span><br><span class="line">// 4. 乘以2运算</span><br><span class="line">System.out.println(10&lt;&lt;1);</span><br><span class="line"></span><br><span class="line">// 5. 除以2运算(负奇数的运算不可用)</span><br><span class="line">System.out.println(10&gt;&gt;1);</span><br><span class="line"></span><br><span class="line">// 6. 乘以2的m次方</span><br><span class="line">System.out.println(10&lt;&lt;2);</span><br><span class="line"></span><br><span class="line">// 7. 除以2的m次方</span><br><span class="line">System.out.println(16&gt;&gt;2);</span><br><span class="line"></span><br><span class="line">// 8. 判断一个数的奇偶性</span><br><span class="line">System.out.println((10 &amp; 1) == 1);</span><br><span class="line">System.out.println((9 &amp; 1) == 1);</span><br><span class="line"></span><br><span class="line">// 9. 不用临时变量交换两个数（面试常考）</span><br><span class="line">a ^= b;</span><br><span class="line">b ^= a;</span><br><span class="line">a ^= b;</span><br><span class="line"></span><br><span class="line">// 10. 取绝对值（某些机器上，效率比n&gt;0 ? n:-n 高）</span><br><span class="line">int n = -1;</span><br><span class="line">System.out.println((n ^ (n &gt;&gt; 31)) - (n &gt;&gt; 31));</span><br><span class="line">/* n&gt;&gt;31 取得n的符号，若n为正数，n&gt;&gt;31等于0，若n为负数，n&gt;&gt;31等于-1</span><br><span class="line">若n为正数 n^0-0数不变，若n为负数n^-1 需要计算n和-1的补码，异或后再取补码，</span><br><span class="line">结果n变号并且绝对值减1，再减去-1就是绝对值 */</span><br><span class="line"></span><br><span class="line">// 11. 取两个数的最大值（某些机器上，效率比a&gt;b ? a:b高）</span><br><span class="line">System.out.println(b&amp;((a-b)&gt;&gt;31) | a&amp;(~(a-b)&gt;&gt;31));</span><br><span class="line"></span><br><span class="line">// 12. 取两个数的最小值（某些机器上，效率比a&gt;b ? b:a高）</span><br><span class="line">System.out.println(a&amp;((a-b)&gt;&gt;31) | b&amp;(~(a-b)&gt;&gt;31));</span><br><span class="line"></span><br><span class="line">// 13. 判断符号是否相同(true 表示 x和y有相同的符号， false表示x，y有相反的符号。)</span><br><span class="line">System.out.println((a ^ b) &gt; 0);</span><br><span class="line"></span><br><span class="line">// 14. 计算2的n次方 n &gt; 0</span><br><span class="line">System.out.println(2&lt;&lt;(n-1));</span><br><span class="line"></span><br><span class="line">// 15. 判断一个数n是不是2的幂</span><br><span class="line">System.out.println((n &amp; (n - 1)) == 0);</span><br><span class="line">/*如果是2的幂，n一定是100... n-1就是1111....</span><br><span class="line">所以做与运算结果为0*/</span><br><span class="line"></span><br><span class="line">// 16. 求两个整数的平均值</span><br><span class="line">System.out.println((a+b) &gt;&gt; 1);</span><br><span class="line"></span><br><span class="line">// 17. 从低位到高位,取n的第m位</span><br><span class="line">int m = 2;</span><br><span class="line">System.out.println((n &gt;&gt; (m-1)) &amp; 1);</span><br><span class="line"></span><br><span class="line">// 18. 从低位到高位.将n的第m位置为1</span><br><span class="line">System.out.println(n | (1&lt;&lt;(m-1)));</span><br><span class="line">/*将1左移m-1位找到第m位，得到000...1...000</span><br><span class="line">n在和这个数做或运算*/</span><br><span class="line"></span><br><span class="line">// 19. 从低位到高位,将n的第m位置为0</span><br><span class="line">System.out.println(n &amp; ~(0&lt;&lt;(m-1)));</span><br><span class="line">/* 将1左移m-1位找到第m位，取反后变成111...0...1111</span><br><span class="line">n再和这个数做与运算*/</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;&lt;      :     左移运算符，num &lt;&lt; 1,相当于num乘以2
+
+&gt;&gt;      :     右移运算符，num &gt;&gt; 1,相当于num除以2
+
+&gt;&gt;&gt;     :     无符号右移，忽略符号位，空位都以0补齐
+</code></pre>
       
     </div>
     
@@ -413,6 +419,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/正则表达式学习/" rel="prev" title="正则表达式学习">
+                正则表达式学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -484,7 +494,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
