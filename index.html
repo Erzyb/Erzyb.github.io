@@ -302,60 +302,21 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <ol>
 <li>任意代码执行漏洞</li>
 <li>密码明文存储漏洞</li>
 <li>域控制不严格漏洞</li>
 </ol>
 </blockquote>
-<hr>
-<ol>
-<li><p>任意代码执行漏洞</p>
-<p> 漏洞产生原因：</p>
-<ol>
-<li>webview 中 <code>addJavascriptInterface()</code> 接口</li>
-<li>webview 内置导出的 <code>searchBoxJavaBridge_</code> 对象</li>
-<li>webview 内置导出的 <code>accessibility</code> 和 <code>accessibilityTraversal</code>Object 对象</li>
-</ol>
-</li>
-</ol>
-<pre><code>1.addJavascriptInterface()
-    分析：
-     ![源码注释](webview漏洞/QQ20180619-151746.png)
-
-    攻击代码示例
-
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function execute(args)&#123;</span><br><span class="line">	//遍历window对象 找到包含getClass()的对象</span><br><span class="line">	for(var obj in window)&#123;</span><br><span class="line">		if(&quot;getClass&quot; in window[obj])&#123;</span><br><span class="line">			//利用反射得到Runtime对象</span><br><span class="line">			alert(obj);</span><br><span class="line">			return window[obj].getClass().forName(&quot;java.lang.Runtime&quot;)</span><br><span class="line">//调用静态方法执行命令</span><br><span class="line">getMethod(&quot;getRuntime&quot;,null).invoke(null,null).exec(args);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-解决方案：
-在Android 4.2版本以前，使用prompt,console.log,alert方式，这三个方法对js里是属性原生的，在android webview这一层是可以重写这三个方法的。一般我们使用prompt，因为这个在js里使用的不多，用来和native通讯副作用比较少。
-
-2.searchBoxJavaBridge_接口引起远程代码执行漏洞
-
-版本3.0以前webview会默认添加一个searchBoxJavaBridge_对象。
-解决：删除searchBoxJavaBridge_接口 removeJavascriptInterface（）；
-
-3.accessibility和 accessibilityTraversal接口引起远程代码执行漏洞
-</code></pre><ol>
-<li><p>密码明文存储漏洞</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WebSettings.setSavePassword(false)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>域控制不严格漏洞</p>
-<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154545.png" alt=""></p>
-<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154629.png" alt=""></p>
-<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154648.png" alt=""></p>
-<p> 建议解决方案：</p>
-<pre><code>1. 对于不需要使用 file 协议的应用，禁用 file 协议；
-2. 对于需要使用 file 协议的应用，禁止 file 协议加载 JavaScript
-
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 需要使用 file 协议</span><br><span class="line">setAllowFileAccess(true); </span><br><span class="line">setAllowFileAccessFromFileURLs(false);</span><br><span class="line">setAllowUniversalAccessFromFileURLs(false);</span><br><span class="line"></span><br><span class="line">// 禁止 file 协议加载 JavaScript</span><br><span class="line">if (url.startsWith(&quot;file://&quot;) &#123;</span><br><span class="line"> 			setJavaScriptEnabled(false);</span><br><span class="line">&#125; else &#123;</span><br><span class="line"> 			setJavaScriptEnabled(true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-</ol>
-
-          
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/19/webview漏洞/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
