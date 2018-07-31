@@ -232,6 +232,255 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/插入式直接处理器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erzyb">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erzyb">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/31/插入式直接处理器/" itemprop="url">插入式直接处理器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-31T13:55:42+08:00">
+                2018-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>插入式注解处理器</p>
+<p>Sub:CheckStyle,FindBugs,Klocwork实现原理</p>
+<p>一.API基础知识</p>
+<p><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/javax/annotation/processing/AbstractProcessor.html" target="_blank" rel="noopener">AbstractProcessor</a></p>
+<p><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/javax/lang/model/element/ElementKind.html" target="_blank" rel="noopener">ElementKind</a></p>
+<p><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/javax/annotation/processing/ProcessingEnvironment.html" target="_blank" rel="noopener">ProcessingEnvironment</a></p>
+<p><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/javax/annotation/processing/SupportedAnnotationTypes.html" target="_blank" rel="noopener">SupportedAnnotationTypes</a> </p>
+<p><a href="https://tool.oschina.net/uploads/apidocs/jdk-zh/javax/annotation/processing/SupportedSourceVersion.html" target="_blank" rel="noopener">SupportedSourceVersion</a></p>
+<p><a href="https://docs.oracle.com/javase/7/docs/api/javax/lang/model/util/ElementScanner6.html" target="_blank" rel="noopener"></a></p>
+<p>二.eg代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">import javax.annotation.processing.AbstractProcessor;</span><br><span class="line">import javax.annotation.processing.ProcessingEnvironment;</span><br><span class="line">import javax.annotation.processing.RoundEnvironment;</span><br><span class="line">import javax.annotation.processing.SupportedAnnotationTypes;</span><br><span class="line">import javax.annotation.processing.SupportedSourceVersion;</span><br><span class="line">import javax.lang.model.SourceVersion;</span><br><span class="line">import javax.lang.model.element.Element;</span><br><span class="line">import javax.lang.model.element.TypeElement;</span><br><span class="line"> </span><br><span class="line">//可以用&quot;*&quot;标识支持所有Annotations</span><br><span class="line">@SupportedAnnotationTypes(&quot;*&quot;)</span><br><span class="line">//只支持JDK1.6的java代码</span><br><span class="line">@SupportedSourceVersion(SourceVersion.RELEASE_6)</span><br><span class="line">public class NameCheckProcessor extends AbstractProcessor &#123;</span><br><span class="line"></span><br><span class="line">    private NameChecker mNameChecker;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始换名称检查插件</span><br><span class="line">     * @param processingEnvironment</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public synchronized void init(ProcessingEnvironment processingEnvironment) &#123;</span><br><span class="line">        super.init(processingEnvironment);</span><br><span class="line">        mNameChecker = new NameChecker(processingEnvironment);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 对输入的语法树的各个节点进行名称检查</span><br><span class="line">     * @param set</span><br><span class="line">     * @param roundEnvironment</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public boolean process(Set&lt;? extends TypeElement&gt; set, RoundEnvironment roundEnvironment) &#123;</span><br><span class="line">        if (!roundEnvironment.processingOver()) &#123;</span><br><span class="line">            for (Element element : roundEnvironment.getRootElements()) &#123;</span><br><span class="line">                mNameChecker.checkNames(element);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line">import java.util.EnumSet;</span><br><span class="line"></span><br><span class="line">import javax.annotation.processing.Messager;</span><br><span class="line">import javax.annotation.processing.ProcessingEnvironment;</span><br><span class="line">import javax.lang.model.element.Element;</span><br><span class="line">import javax.lang.model.element.ElementKind;</span><br><span class="line">import javax.lang.model.element.ExecutableElement;</span><br><span class="line">import javax.lang.model.element.Name;</span><br><span class="line">import javax.lang.model.element.TypeElement;</span><br><span class="line">import javax.lang.model.element.VariableElement;</span><br><span class="line">import javax.lang.model.util.ElementScanner6;</span><br><span class="line">import javax.tools.Diagnostic;</span><br><span class="line"></span><br><span class="line">import static javax.lang.model.element.Modifier.FINAL;</span><br><span class="line">import static javax.lang.model.element.Modifier.PUBLIC;</span><br><span class="line">import static javax.lang.model.element.Modifier.STATIC;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 程序名称规范的编译器插件</span><br><span class="line"> * 如果名称不符合规范，将会报出一个编译器的警告信息</span><br><span class="line"> * Created by zhouyibo on 2018/7/30.</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class NameChecker &#123;</span><br><span class="line">    private final Messager mMessager;</span><br><span class="line">    private NameCheckScanner mNameCheckScanner = new NameCheckScanner();</span><br><span class="line"></span><br><span class="line">    public NameChecker(ProcessingEnvironment processingEnvironment) &#123;</span><br><span class="line">        mMessager = processingEnvironment.getMessager();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 对Java程序命名进行检查</span><br><span class="line">     * @param element</span><br><span class="line">     */</span><br><span class="line">    public void checkNames(Element element) &#123;</span><br><span class="line">        mNameCheckScanner.scan(element);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 名称检查实现类 继承ElementScanner6</span><br><span class="line">     * 将会以Visitor模式访问抽象语法树中的元素</span><br><span class="line">     */</span><br><span class="line">    private class NameCheckScanner extends ElementScanner6&lt;Void, Void&gt; &#123;</span><br><span class="line">        /**</span><br><span class="line">         * 检查Java类</span><br><span class="line">         * @param typeElement</span><br><span class="line">         * @param aVoid</span><br><span class="line">         * @return</span><br><span class="line">         */</span><br><span class="line">        @Override</span><br><span class="line">        public Void visitType(TypeElement typeElement, Void aVoid) &#123;</span><br><span class="line">            scan(typeElement.getTypeParameters(), aVoid);</span><br><span class="line">            checkCamelCase(typeElement, true);</span><br><span class="line">            super.visitType(typeElement, aVoid);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 检查方法名</span><br><span class="line">         * @param executableElement</span><br><span class="line">         * @param aVoid</span><br><span class="line">         * @return</span><br><span class="line">         */</span><br><span class="line">        @Override</span><br><span class="line">        public Void visitExecutable(ExecutableElement executableElement, Void aVoid) &#123;</span><br><span class="line">            if (executableElement.getKind() == ElementKind.METHOD) &#123;</span><br><span class="line">                Name name = executableElement.getSimpleName();</span><br><span class="line">                if (name.contentEquals(executableElement.getEnclosingElement().getSimpleName())) &#123;</span><br><span class="line">                    mMessager.printMessage(Diagnostic.Kind.WARNING, &quot;一个普通方法&quot; + name + &quot;不应当与类名重复，避免与构造函数产生混淆&quot;, executableElement);</span><br><span class="line">                    checkCamelCase(executableElement, false);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            super.visitExecutable(executableElement, aVoid);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 检查变量命名</span><br><span class="line">         * @param variableElement</span><br><span class="line">         * @param aVoid</span><br><span class="line">         * @return</span><br><span class="line">         */</span><br><span class="line">        @Override</span><br><span class="line">        public Void visitVariable(VariableElement variableElement, Void aVoid) &#123;</span><br><span class="line">            if (variableElement.getKind() == ElementKind.ENUM_CONSTANT || variableElement.getConstantValue() != null || heuristicallyConstant(variableElement)) &#123;</span><br><span class="line">                checkAllCaps(variableElement);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                checkCamelCase(variableElement, false);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 大写命名检查</span><br><span class="line">         * @param e</span><br><span class="line">         */</span><br><span class="line">        private void checkAllCaps(Element e) &#123;</span><br><span class="line">            String name = e.getSimpleName().toString();</span><br><span class="line">            boolean convertional = true;</span><br><span class="line">            int firstCodePoint = name.codePointAt(0);</span><br><span class="line">            if (!Character.isUpperCase(firstCodePoint)) &#123;</span><br><span class="line">                convertional = false;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                boolean previousUnderscore = false;</span><br><span class="line">                int cp = firstCodePoint;</span><br><span class="line">                for (int i = Character.charCount(cp); i &lt; name.length(); i += Character.charCount(cp)) &#123;</span><br><span class="line">                    cp = name.codePointAt(i);</span><br><span class="line">                    if (cp == (int) &apos;_&apos;) &#123;</span><br><span class="line">                        if (previousUnderscore) &#123;</span><br><span class="line">                            convertional = false;</span><br><span class="line">                            break;</span><br><span class="line">                        &#125;</span><br><span class="line">                        previousUnderscore = true;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        previousUnderscore = false;</span><br><span class="line">                        if (!Character.isUpperCase(cp) &amp;&amp; !Character.isDigit(cp)) &#123;</span><br><span class="line">                            convertional = false;</span><br><span class="line">                            break;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (!convertional) &#123;</span><br><span class="line">                mMessager.printMessage(Diagnostic.Kind.WARNING, &quot;常量&quot; + name + &quot;应当全部以大写字母或者下划线命名，并且以字母开头&quot;, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 检查是都是常量</span><br><span class="line">         * @param variableElement</span><br><span class="line">         * @return</span><br><span class="line">         */</span><br><span class="line">        private boolean heuristicallyConstant(VariableElement variableElement) &#123;</span><br><span class="line">            if (variableElement.getEnclosingElement().getKind() == ElementKind.INTERFACE) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125; else if (variableElement.getKind() == ElementKind.FIELD &amp;&amp; variableElement.getModifiers().containsAll(EnumSet.of(PUBLIC, STATIC, FINAL))) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 检查是否符合驼式命名</span><br><span class="line">         * @param e</span><br><span class="line">         * @param b</span><br><span class="line">         */</span><br><span class="line">        private void checkCamelCase(Element e, boolean b) &#123;</span><br><span class="line">            String name = e.getSimpleName().toString();</span><br><span class="line">            boolean previousUpper = false;</span><br><span class="line">            boolean conventional = true;</span><br><span class="line">            int firstCodePoint = name.codePointAt(0);</span><br><span class="line">            if (Character.isUpperCase(firstCodePoint)) &#123;</span><br><span class="line">                previousUpper = true;</span><br><span class="line">                if (!b) &#123;</span><br><span class="line">                    mMessager.printMessage(Diagnostic.Kind.WARNING, &quot;名称&quot; + name + &quot;应当以小写字母开头&quot;, e);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else if (Character.isLowerCase(firstCodePoint)) &#123;</span><br><span class="line">                if (b) &#123;</span><br><span class="line">                    mMessager.printMessage(Diagnostic.Kind.WARNING, &quot;名称&quot; + name + &quot;应当以大写字母开头&quot;, e);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                conventional = false;</span><br><span class="line">            &#125;</span><br><span class="line">            if (conventional) &#123;</span><br><span class="line">                int cp = firstCodePoint;</span><br><span class="line">                for (int i = Character.charCount(cp); i &lt; name.length(); i += Character.charCount(cp)) &#123;</span><br><span class="line">                    cp = name.codePointAt(i);</span><br><span class="line">                    if (Character.isUpperCase(cp)) &#123;</span><br><span class="line">                        if (previousUpper) &#123;</span><br><span class="line">                            conventional = false;</span><br><span class="line">                            break;</span><br><span class="line">                        &#125;</span><br><span class="line">                        previousUpper = true;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        previousUpper = false;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (!conventional) &#123;</span><br><span class="line">                mMessager.printMessage(Diagnostic.Kind.WARNING, &quot;名称&quot; + name + &quot;应当符合驼式命名法&quot;, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/webview缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erzyb">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/user.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erzyb">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/20/webview缓存/" itemprop="url">webview缓存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T10:26:49+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/webview漏洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1283,263 +1532,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/关于Apk签名版本的一次探究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Erzyb">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Erzyb">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/02/关于Apk签名版本的一次探究/" itemprop="url">关于Apk签名版本的一次探究</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T10:24:31+08:00">
-                2018-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&emsp;&emsp;事情是这样的，有一天产品突然说，每次打渠道包都需要找技术，麻烦，有没有办法可以让运营自己完成这个事情。正好之前看过美团多渠道打包方案，有已经成功的例子在了，怕什么，话不多说开始撸。</p>
-<p>&emsp;&emsp;仿照着<a href="https://tech.meituan.com/mt-apk-packaging.html" target="_blank" rel="noopener">美团多渠道打包方案</a>很快就撸完了，打包，安装，好使，不错不错，心情美滋滋,然而。。。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/02/关于Apk签名版本的一次探究/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/Android-修改assets文件并重新签名-python/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Erzyb">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/user.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Erzyb">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/01/Android-修改assets文件并重新签名-python/" itemprop="url">Android 修改assets文件并重新签名——python</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T14:24:30+08:00">
-                2018-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>需求分析：</strong></p>
-<p>产品是一个阅读类软件，在版本上线后因为渠道推广的原因一直有特殊渠道要求内置书的需求，需求并不难做，需要准备好材料，修改软件内的assets文件内容，修改渠道号重新打包。基本步骤是这样的：</p>
-<pre><code>1. 接到特殊内置书的需求，书籍的id
-2. 通过浏览器拼接url找到书籍的信息，包括书籍信息，章节列表，部分章节内容
-3. 把书籍信息保存为特定文件，文件名要和代码逻辑适配
-4. 粘贴到项目中
-5. 打包
-6. 发送测试验收
-</code></pre><p>整个流程作为一个熟练工，大概需要20分钟的时间搞定然后回复到之前的工作状态，包括git分支切换等乱七八糟的事情。其实这个事情说起来也不大，但是，很烦。每次都是重复的工作，并且有越来越频繁的趋势。所以，是时候展示一下技术了(<del>反正本公司测试也不懂</del>)，毕竟身为技术人员(<del>不会承认是害怕在自己环节出错的</del>).</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/01/Android-修改assets文件并重新签名-python/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1594,7 +1586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
